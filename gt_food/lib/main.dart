@@ -34,7 +34,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  late Model? _model = null;
+  late Model? _model;
   @override
   void initState() {
     super.initState();
