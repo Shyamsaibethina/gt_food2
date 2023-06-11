@@ -139,7 +139,7 @@ class MenuItem {
     bool isSectionTitle;
     bool bold;
     bool featured;
-    HallLocation text;
+    HallLocation? text;
     bool noLineBreak;
     bool blankLine;
     Food? food;
@@ -155,7 +155,7 @@ class MenuItem {
     Category category;
     double? price;
     dynamic servingSize;
-    int? servingSizeAmount;
+    double? servingSizeAmount;
     ServingSizeUnit? servingSizeUnit;
     dynamic smartRecipeId;
     int menuId;
@@ -196,7 +196,7 @@ class MenuItem {
         isSectionTitle: json["is_section_title"],
         bold: json["bold"],
         featured: json["featured"],
-        text: textValues.map[json["text"]]!,
+        text: textValues.map[json["text"]],
         noLineBreak: json["no_line_break"],
         blankLine: json["blank_line"],
         food: json["food"] == null ? null : Food.fromJson(json["food"]),
@@ -213,7 +213,7 @@ class MenuItem {
         price: json["price"]?.toDouble(),
         servingSize: json["serving_size"],
         servingSizeAmount: json["serving_size_amount"],
-        servingSizeUnit: servingSizeUnitValues.map[json["serving_size_unit"]]!,
+        servingSizeUnit: servingSizeUnitValues.map[json["serving_size_unit"]],
         smartRecipeId: json["smart_recipe_id"],
         menuId: json["menu_id"],
     );
@@ -396,10 +396,10 @@ class Food {
 }
 
 class AggregatedData {
-    int priceAdjustment;
+    double priceAdjustment;
     bool iconsApproved;
     List<dynamic> foodIcons;
-    int calories;
+    double calories;
 
     AggregatedData({
         required this.priceAdjustment,
@@ -723,7 +723,7 @@ class ServingSizeInfo {
 
     factory ServingSizeInfo.fromJson(Map<String, dynamic> json) => ServingSizeInfo(
         servingSizeAmount: json["serving_size_amount"],
-        servingSizeUnit: servingSizeUnitValues.map[json["serving_size_unit"]]!,
+        servingSizeUnit: servingSizeUnitValues.map[json["serving_size_unit"]],
     );
 
     Map<String, dynamic> toJson() => {
