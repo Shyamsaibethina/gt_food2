@@ -212,7 +212,7 @@ class MenuItem {
         category: categoryValues.map[json["category"]]!,
         price: json["price"]?.toDouble(),
         servingSize: json["serving_size"],
-        servingSizeAmount: json["serving_size_amount"],
+        servingSizeAmount: json["serving_size_amount"]?.toDouble(),
         servingSizeUnit: servingSizeUnitValues.map[json["serving_size_unit"]],
         smartRecipeId: json["smart_recipe_id"],
         menuId: json["menu_id"],
@@ -409,10 +409,10 @@ class AggregatedData {
     });
 
     factory AggregatedData.fromJson(Map<String, dynamic> json) => AggregatedData(
-        priceAdjustment: json["price_adjustment"],
+        priceAdjustment: json["price_adjustment"].toDouble(),
         iconsApproved: json["icons_approved"],
         foodIcons: List<dynamic>.from(json["food_icons"].map((x) => x)),
-        calories: json["calories"],
+        calories: json["calories"].toDouble(),
     );
 
     Map<String, dynamic> toJson() => {

@@ -13,12 +13,14 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       title: 'Flutter layout demo',
       home: Scaffold(
-        body: Column(
-          children: [
-            Text('Hello World'),
-            Calendar(),
-            SizedBox(height: 100, child: Home()),
-          ],
+        body: SafeArea(
+          child: Column(
+            children: [
+              Text('Hello World'),
+              Calendar(),
+              SizedBox(height: 100, child: Home()),
+            ],
+          ),
         ),
       ),
     );
@@ -33,8 +35,7 @@ class Calendar extends StatefulWidget {
 }
 
 class _CalendarState extends State<Calendar> {
-  final _controller = AdvancedCalendarController.today();
-
+  final AdvancedCalendarController _controller = AdvancedCalendarController.today();
   AdvancedCalendarController get controller => _controller;
 
   //print the selected date using AdvancedCalendarController
@@ -45,13 +46,47 @@ class _CalendarState extends State<Calendar> {
   @override
   void initState() {
     super.initState();
+
+    _controller.addListener((){
+      print("Value changed: " + _controller.value.toString());
+    });
     _printSelectedDate();
   }
 
   @override
   Widget build(BuildContext context) {
-    return AdvancedCalendar(
-      controller: _controller,
+    final theme = Theme.of(context);
+
+    return Theme(
+      data: theme.copyWith(
+        textTheme: theme.textTheme.copyWith(
+          titleMedium: theme.textTheme.titleMedium!.copyWith(
+            fontSize: 32,
+            color: theme.colorScheme.secondary,
+          ),
+          bodyLarge: theme.textTheme.bodyLarge!.copyWith(
+            fontSize: 24,
+            color: Colors.black54,
+          ),
+          bodyMedium: theme.textTheme.bodyMedium!.copyWith(
+            fontSize: 24,
+            color: Colors.black87,
+          ),
+        ),
+        primaryColor: Colors.red,
+        highlightColor: Colors.yellow,
+        disabledColor: Colors.green,
+      ),
+      child: AdvancedCalendar(
+        controller: _controller,
+        events: [],
+        calendarTextStyle: const TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.w400,
+          height: 1.3125,
+          letterSpacing: 0,
+        ),
+      ),
     );
   }
 }
@@ -64,7 +99,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  late Model? _model;
+  Model? _model;
   @override
   void initState() {
     super.initState();
