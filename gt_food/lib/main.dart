@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gt_food/model.dart';
 import 'package:gt_food/api_service.dart';
+import 'package:flutter_advanced_calendar/flutter_advanced_calendar.dart';
 
 void main() => runApp(const MyApp());
 
@@ -9,19 +10,48 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: 'Flutter layout demo',
       home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Flutter layout demo'),
-        ),
-        body: const Column(
+        body: Column(
           children: [
             Text('Hello World'),
+            Calendar(),
             SizedBox(height: 100, child: Home()),
           ],
         ),
       ),
+    );
+  }
+}
+
+class Calendar extends StatefulWidget {
+  const Calendar({Key? key}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => _CalendarState();
+}
+
+class _CalendarState extends State<Calendar> {
+  final _controller = AdvancedCalendarController.today();
+
+  AdvancedCalendarController get controller => _controller;
+
+  //print the selected date using AdvancedCalendarController
+  void _printSelectedDate() {
+    print(_controller.value);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _printSelectedDate();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AdvancedCalendar(
+      controller: _controller,
     );
   }
 }
