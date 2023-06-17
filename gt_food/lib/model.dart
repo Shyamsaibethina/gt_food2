@@ -866,7 +866,9 @@ enum HallLocation {
   MINDFUL_BYTES,
   TECH_TAQUERIA,
   FRUIT,
-  RAMBLIN_COFFEE_SWEETS
+  RAMBLIN_COFFEE_SWEETS,
+  YOGURT,
+  BAKED_GOODS
 }
 
 final textValues = EnumValues({
@@ -878,7 +880,9 @@ final textValues = EnumValues({
   "Ramblin' Coffee & Sweets": HallLocation.RAMBLIN_COFFEE_SWEETS,
   "Tech Taqueria": HallLocation.TECH_TAQUERIA,
   "Vegan/Vegetarian": HallLocation.VEGAN_VEGETARIAN,
-  "White & Gold Grill": HallLocation.WHITE_GOLD_GRILL
+  "White & Gold Grill": HallLocation.WHITE_GOLD_GRILL,
+  "Yogurt": HallLocation.YOGURT,
+  "Baked Goods": HallLocation.BAKED_GOODS,
 });
 
 class EnumValues<T> {
