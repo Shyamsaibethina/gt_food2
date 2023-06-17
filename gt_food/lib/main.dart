@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:gt_food/model.dart';
-import 'package:gt_food/api_service.dart';
 import 'package:flutter_advanced_calendar/flutter_advanced_calendar.dart';
 import 'package:flutter/src/widgets/icon.dart';
+import 'package:gt_food/model.dart';
+import 'package:gt_food/api_service.dart';
+import 'package:gt_food/menu.dart';
+
 
 void main() => runApp(const MyApp());
 
@@ -19,6 +21,7 @@ class MyApp extends StatelessWidget {
             children: [
               Calendar(),
               SizedBox(height: 100, child: Home()),
+              Expanded(child: Menu()),
               SizedBox(height: 100, child: AppBar()),
             ],
           ),
