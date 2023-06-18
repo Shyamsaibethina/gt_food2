@@ -37,6 +37,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_advanced_calendar: ^1.4.1
   sticky_headers: ^0.3.0+2
+  colorful_safe_area: ^1.0.0
 
 dev_dependencies:
   flutter_test:
