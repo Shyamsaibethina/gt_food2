@@ -5,7 +5,6 @@ import 'package:gt_food/model.dart';
 import 'package:gt_food/api_service.dart';
 import 'package:gt_food/menu.dart';
 
-
 void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
@@ -16,15 +15,13 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       title: 'Flutter layout demo',
       home: Scaffold(
-        body: SafeArea(
-          child: Column(
-            children: [
-              Calendar(),
-              SizedBox(height: 100, child: Home()),
-              Expanded(child: Menu()),
-              SizedBox(height: 100, child: AppBar()),
-            ],
-          ),
+        body: Column(
+          children: [
+            SafeArea(child: Calendar()),
+            SizedBox(height: 100, child: Home()),
+            Expanded(child: Menu()),
+            SizedBox(height: 50, child: AppBar()),
+          ],
         ),
       ),
     );
@@ -150,65 +147,37 @@ class AppBar extends StatelessWidget {
           preferredSize: const Size.fromHeight(kToolbarHeight),
           child: Container(
             color: colorScheme.primary,
-            child: SafeArea(
-              child: Column(
-                children: [
-                  TabBar(
+            child: Column(
+              children: [
+                Align(
+                  alignment: AlignmentDirectional.bottomCenter,
+                  child: TabBar(
+                    indicatorColor: Colors.red,
                     tabs: [
                       Tab(
                           icon: Image.asset(
-                        'assets/images/brittain.jpg',
-                        width: 30,
-                        height: 30,
+                        'assets/images/brittain-transparent.png',
+                        width: 80,
+                        height: 80,
                       )),
                       Tab(
                           icon: Image.asset(
-                        'assets/images/nav.jpg',
-                        width: 30,
-                        height: 30,
+                        'assets/images/nav-transparent.png',
+                        width: 80,
+                        height: 80,
                       )),
                       Tab(
                           icon: Image.asset(
-                        'assets/images/willage.jpg',
-                        width: 30,
-                        height: 30,
+                        'assets/images/willage-transparent.png',
+                        width: 80,
+                        height: 80,
                       )),
                     ],
                   ),
-                ],
-              ),
+                )
+              ],
             ),
           ),
         )));
   }
 }
-
-// class AppBar extends StatefulWidget {
-//   const AppBar({Key? key}) : super(key: key);
-
-//   @override
-//   State<StatefulWidget> createState() => _AppBarState();
-// }
-
-// class _AppBarState extends State<AppBar> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       height: 100,
-//       color: Colors.red,
-//       child: Row(
-//         children: [
-//           IconButton(
-//             onPressed: () {},
-//             icon: const Text("First option"),
-//           ),
-//           const Spacer(),
-//           IconButton(
-//             onPressed: () {},
-//             icon: const Text("Second option"),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }
