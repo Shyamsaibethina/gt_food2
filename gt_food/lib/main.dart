@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_calendar/flutter_advanced_calendar.dart';
 import 'package:flutter/src/widgets/icon.dart';
@@ -20,7 +22,7 @@ class MyApp extends StatelessWidget {
             SafeArea(child: Calendar()),
             SizedBox(height: 100, child: Home()),
             Expanded(child: Menu()),
-            SizedBox(height: 50, child: AppBar()),
+            SafeArea(child: SizedBox(height: 45, child: BottomTab())),
           ],
         ),
       ),
@@ -132,8 +134,8 @@ class _HomeState extends State<Home> {
   }
 }
 
-class AppBar extends StatelessWidget {
-  const AppBar({Key? key}) : super(key: key);
+class BottomTab extends StatelessWidget {
+  const BottomTab({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -143,41 +145,37 @@ class AppBar extends StatelessWidget {
     return DefaultTabController(
         length: tabsCount,
         child: Scaffold(
-            appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(kToolbarHeight),
-          child: Container(
-            color: colorScheme.primary,
-            child: Column(
-              children: [
-                Align(
-                  alignment: AlignmentDirectional.bottomCenter,
-                  child: TabBar(
-                    indicatorColor: Colors.red,
-                    tabs: [
-                      Tab(
-                          icon: Image.asset(
-                        'assets/images/brittain-transparent.png',
-                        width: 80,
-                        height: 80,
-                      )),
-                      Tab(
-                          icon: Image.asset(
-                        'assets/images/nav-transparent.png',
-                        width: 80,
-                        height: 80,
-                      )),
-                      Tab(
-                          icon: Image.asset(
-                        'assets/images/willage-transparent.png',
-                        width: 80,
-                        height: 80,
-                      )),
-                    ],
-                  ),
-                )
-              ],
-            ),
+          backgroundColor: colorScheme.primary,
+          bottomNavigationBar: TabBar(
+            indicator: const BoxDecoration(color: Colors.orange),
+            tabs: [
+              Tab(
+                  icon: Image.asset(
+                'assets/images/brittain-transparent.png',
+                width: 80,
+                height: 80,
+              )),
+              Tab(
+                  icon: Image.asset(
+                'assets/images/nav-transparent.png',
+                width: 80,
+                height: 80,
+              )),
+              Tab(
+                  icon: Image.asset(
+                'assets/images/willage-transparent.png',
+                width: 80,
+                height: 80,
+              )),
+            ],
           ),
-        )));
+          body: const TabBarView(
+            children: [
+              Center(child: Text('Brittain')),
+              Center(child: Text('North Ave')),
+              Center(child: Text('West Village')),
+            ],
+          ),
+        ));
   }
 }
