@@ -43,6 +43,11 @@ class Model {
         "last_updated": lastUpdated.toIso8601String(),
         "bold_all_entrees_enabled": boldAllEntreesEnabled,
       };
+    
+  Day getMenuDay(DateTime date) {
+    return days
+        .firstWhere((element) => element.date.day == date.day);
+  }
 }
 
 class Day {

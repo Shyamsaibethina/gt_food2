@@ -1,12 +1,12 @@
 import 'dart:collection';
 
-import 'package:gt_food/api_service.dart';
 import 'package:gt_food/model.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 import 'package:flutter/material.dart';
 
 class Menu extends StatefulWidget {
-  const Menu({Key? key}) : super(key: key);
+  final Day menuDay;
+  Menu(this.menuDay);
 
   @override
   State<StatefulWidget> createState() => _MenuState();
@@ -15,25 +15,10 @@ class Menu extends StatefulWidget {
 class _MenuState extends State<Menu> {
   HashMap<HallLocation, List<MenuItem>> _menuItems = HashMap();
 
-  @override
-  void initState() {
-    super.initState();
-    _getMenuDay();
-  }
-
   //TODO: don't reuse code
-  void _getMenuDay() async {
-    DateTime now = DateTime.now();
-    Model? _model =
-        (await ApiService().getDiningHallMenu('west-village', 'lunch', now));
-    if (_model == null) {
-      throw ArgumentError("could not get model");
-    }
-
+  void setMenuItems() {
     // get all menu items for the current day
-    List<MenuItem> _rawMenuItems = _model.days
-        .firstWhere((element) => element.date.day == now.day)
-        .menuItems;
+    List<MenuItem> _rawMenuItems = widget.menuDay.menuItems;
 
     // populate menu items hashmap
     HallLocation currentKey = HallLocation.EMPTY;
@@ -46,11 +31,16 @@ class _MenuState extends State<Menu> {
       }
     }
 
-    Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
+    //TODO: remove debug code
+    print("Rebuilding menu widget with date: ${widget.menuDay.date.toIso8601String()}");
+
+    setMenuItems();
+
     return _menuItems.isEmpty
         ? const Center(
             child: CircularProgressIndicator(),
@@ -83,7 +73,9 @@ class _MenuState extends State<Menu> {
                       );
                     },
                     separatorBuilder: (context, index) {
-                      return VerticalDivider(thickness: 3.0,);
+                      return VerticalDivider(
+                        thickness: 3.0,
+                      );
                     },
                   ),
                 ),

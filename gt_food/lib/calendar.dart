@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_calendar/flutter_advanced_calendar.dart';
+import 'package:gt_food/menuURL.dart';
 
 class Calendar extends StatefulWidget {
-  const Calendar({Key? key}) : super(key: key);
+  ValueNotifier<DateTime> dateTime;
+
+  Calendar(this.dateTime);
 
   @override
   State<StatefulWidget> createState() => _CalendarState();
@@ -13,19 +16,13 @@ class _CalendarState extends State<Calendar> {
       AdvancedCalendarController.today();
   AdvancedCalendarController get controller => _controller;
 
-  //print the selected date using AdvancedCalendarController
-  void _printSelectedDate() {
-    print(_controller.value);
-  }
-
   @override
   void initState() {
     super.initState();
 
     _controller.addListener(() {
-      print("Value changed: ${_controller.value}");
+      widget.dateTime.value = _controller.value;
     });
-    _printSelectedDate();
   }
 
   @override
