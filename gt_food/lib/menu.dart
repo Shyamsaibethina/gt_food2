@@ -73,6 +73,7 @@ class _MenuState extends State<Menu> {
                 content: Container(
                   height: 200.0,
                   child: ListView.separated(
+                    scrollDirection: Axis.horizontal,
                     itemCount: _menuItems[key]!.length,
                     itemBuilder: (context, index) {
                       return Container(
@@ -82,7 +83,7 @@ class _MenuState extends State<Menu> {
                       );
                     },
                     separatorBuilder: (context, index) {
-                      return Divider(thickness: 3.0);
+                      return VerticalDivider(thickness: 3.0,);
                     },
                   ),
                 ),

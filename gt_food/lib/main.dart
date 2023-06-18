@@ -2,9 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_calendar/flutter_advanced_calendar.dart';
-import 'package:flutter/src/widgets/icon.dart';
-import 'package:gt_food/model.dart';
-import 'package:gt_food/api_service.dart';
 import 'package:gt_food/menu.dart';
 
 void main() => runApp(const MyApp());
@@ -20,7 +17,6 @@ class MyApp extends StatelessWidget {
         body: Column(
           children: [
             SafeArea(child: Calendar()),
-            SizedBox(height: 100, child: Home()),
             Expanded(child: Menu()),
             SafeArea(child: SizedBox(height: 45, child: BottomTab())),
           ],
@@ -95,45 +91,6 @@ class _CalendarState extends State<Calendar> {
   }
 }
 
-class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
-
-  @override
-  State<StatefulWidget> createState() => _HomeState();
-}
-
-class _HomeState extends State<Home> {
-  Model? _model;
-  @override
-  void initState() {
-    super.initState();
-    _getData();
-  }
-
-  void _getData() async {
-    DateTime now = DateTime.now();
-    _model =
-        (await ApiService().getDiningHallMenu('west-village', 'lunch', now));
-    Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: _model == null
-          ? const Center(
-              child: CircularProgressIndicator(),
-            )
-          : Text(_model?.startDate.toString() ?? 'null',
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              )),
-    );
-  }
-}
-
 class BottomTab extends StatelessWidget {
   const BottomTab({Key? key}) : super(key: key);
 
@@ -145,9 +102,9 @@ class BottomTab extends StatelessWidget {
     return DefaultTabController(
         length: tabsCount,
         child: Scaffold(
-          backgroundColor: colorScheme.primary,
+          backgroundColor: Color(0xFF5FA8D3),
           bottomNavigationBar: TabBar(
-            indicator: const BoxDecoration(color: Colors.orange),
+            indicator: const BoxDecoration(color: Color(0xFFFCD0A1)),
             tabs: [
               Tab(
                   icon: Image.asset(
