@@ -43,10 +43,9 @@ class Model {
         "last_updated": lastUpdated.toIso8601String(),
         "bold_all_entrees_enabled": boldAllEntreesEnabled,
       };
-    
+
   Day getMenuDay(DateTime date) {
-    return days
-        .firstWhere((element) => element.date.day == date.day);
+    return days.firstWhere((element) => element.date.day == date.day);
   }
 }
 
@@ -217,7 +216,7 @@ class MenuItem {
       };
 }
 
-enum Category { EMPTY, GRAIN, DESSERT, ENTREE, SIDE, CONDIMENT }
+enum Category { EMPTY, GRAIN, DESSERT, ENTREE, SIDE, CONDIMENT, SALAD }
 
 final categoryValues = EnumValues({
   "condiment": Category.CONDIMENT,
@@ -225,7 +224,8 @@ final categoryValues = EnumValues({
   "": Category.EMPTY,
   "entree": Category.ENTREE,
   "grain": Category.GRAIN,
-  "side": Category.SIDE
+  "side": Category.SIDE,
+  "salad": Category.SALAD
 });
 
 class Food {
@@ -873,7 +873,19 @@ enum HallLocation {
   FRUIT,
   RAMBLIN_COFFEE_SWEETS,
   YOGURT,
-  BAKED_GOODS
+  BAKED_GOODS,
+  SIDEWAYS_DINER,
+  GLOBAL_CONNECTION,
+  ACTION_EXPO,
+  HOME_NETWORK,
+  PI_ZONE,
+  WELLNESS_INNOVATION,
+  BUZZIN_BLENDS,
+  SOUP_OF_THE_DAY,
+  ENGINEERED_SALADS,
+  FRESH_CUT_SALADS,
+  DRESSINGS,
+  HI_REZ_PASTRIES
 }
 
 final textValues = EnumValues({
@@ -888,6 +900,18 @@ final textValues = EnumValues({
   "White & Gold Grill": HallLocation.WHITE_GOLD_GRILL,
   "Yogurt": HallLocation.YOGURT,
   "Baked Goods": HallLocation.BAKED_GOODS,
+  "Action Expo": HallLocation.ACTION_EXPO,
+  "Buzzin' Blends": HallLocation.BUZZIN_BLENDS,
+  "Dressings": HallLocation.DRESSINGS,
+  "Engineered Salads": HallLocation.ENGINEERED_SALADS,
+  "Fresh Cut Salads": HallLocation.FRESH_CUT_SALADS,
+  "Global Connection": HallLocation.GLOBAL_CONNECTION,
+  "Hi Rez Pastries": HallLocation.HI_REZ_PASTRIES,
+  "Home Network": HallLocation.HOME_NETWORK,
+  "Pi Zone": HallLocation.PI_ZONE,
+  "Sideways Diner": HallLocation.SIDEWAYS_DINER,
+  "Soup of the Day": HallLocation.SOUP_OF_THE_DAY,
+  "Wellness Innovation": HallLocation.WELLNESS_INNOVATION
 });
 
 class EnumValues<T> {
