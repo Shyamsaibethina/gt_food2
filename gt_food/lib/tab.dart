@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:gt_food/constants.dart';
 
 class BottomTab extends StatelessWidget {
-  const BottomTab({Key? key}) : super(key: key);
+  BottomTab(this.diningHall, {super.key});
+  ValueNotifier<String> diningHall;
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +35,14 @@ class BottomTab extends StatelessWidget {
                 height: 80,
               )),
             ],
+            onTap: (value) => {
+              if (value == 0)
+                {diningHall.value = DiningHall.brittain}
+              else if (value == 1)
+                {diningHall.value = DiningHall.northAve}
+              else
+                {diningHall.value = DiningHall.westVillage}
+            },
           ),
         ));
   }

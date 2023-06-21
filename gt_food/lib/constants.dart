@@ -7,9 +7,9 @@ class ApiConstants {
 }
 
 class DiningHall {
-  static const String westVillage = "west-village";
-  static const String northAve = "north-ave-dining-hall";
   static const String brittain = "brittain";
+  static const String northAve = "north-ave-dining-hall";
+  static const String westVillage = "west-village";
 }
 
 class Meal {
