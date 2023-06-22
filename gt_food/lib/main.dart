@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         body: Column(
           children: [
-            SafeArea(child: Calendar(_menuURL.dateTime)),
+            SafeArea(bottom: false, child: Calendar(_menuURL.dateTime)),
             ValueListenableBuilder2(
               first: _menuURL.dateTime,
               second: _menuURL.diningHall,
@@ -41,10 +41,22 @@ class MyApp extends StatelessWidget {
                   builder:
                       (BuildContext context, AsyncSnapshot<void> snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const CircularProgressIndicator();
+                      return const Expanded(
+                          child: Align(
+                        alignment: Alignment.center,
+                        child: CircularProgressIndicator(),
+                      ));
                     } else {
+                      if (model!.getMenuDay(_menuURL.dateTime.value) == null) {
+                        return const Expanded(
+                            child: Align(
+                          alignment: Alignment.center,
+                          child: Text('No menu available'),
+                        ));
+                      }
                       return Expanded(
-                        child: Menu(model!.getMenuDay(_menuURL.dateTime.value)),
+                        child:
+                            Menu(model!.getMenuDay(_menuURL.dateTime.value)!),
                       );
                     }
                   },
@@ -67,15 +79,11 @@ class ValueListenableBuilder2<A, B> extends StatelessWidget {
     required this.second,
     Key? key,
     required this.builder,
-    // required this.menu,
-    // required this.refreshModel,
   }) : super(key: key);
 
   final ValueNotifier<A> first;
   final ValueNotifier<B> second;
   final Widget Function(BuildContext context, A a, B b) builder;
-  // final Menu menu;
-  // final Future<void> Function() refreshModel;
 
   @override
   Widget build(BuildContext context) => ValueListenableBuilder<A>(
@@ -90,16 +98,3 @@ class ValueListenableBuilder2<A, B> extends StatelessWidget {
         },
       );
 }
-
-// return FutureBuilder<void>(
-//                 future: refreshModel(),
-//                 builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
-//                   if (snapshot.connectionState == ConnectionState.waiting) {
-//                     return const CircularProgressIndicator();
-//                   } else {
-//                     return Expanded(
-//                       child: Menu(model!.getMenuDay(_menuURL.dateTime.value)),
-//                     );
-//                   }
-//                 },
-//               );

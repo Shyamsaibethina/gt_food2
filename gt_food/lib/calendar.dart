@@ -52,6 +52,7 @@ class _CalendarState extends State<Calendar> {
       child: AdvancedCalendar(
         controller: _controller,
         events: [],
+        preloadMonthViewAmount: 3,
         calendarTextStyle: const TextStyle(
           fontSize: 18,
           fontWeight: FontWeight.w400,

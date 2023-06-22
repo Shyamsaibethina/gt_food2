@@ -44,8 +44,10 @@ class Model {
         "bold_all_entrees_enabled": boldAllEntreesEnabled,
       };
 
-  Day getMenuDay(DateTime date) {
-    return days.firstWhere((element) => element.date.day == date.day);
+  Day? getMenuDay(DateTime date) {
+    return days.firstWhere((element) => element.date.day == date.day) == null
+        ? null
+        : days.firstWhere((element) => element.date.day == date.day);
   }
 }
 

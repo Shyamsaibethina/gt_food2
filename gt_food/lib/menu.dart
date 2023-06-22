@@ -37,7 +37,8 @@ class _MenuState extends State<Menu> {
   @override
   Widget build(BuildContext context) {
     //TODO: remove debug code
-    print("Rebuilding menu widget with date: ${widget.menuDay.date.toIso8601String()}");
+    print(
+        "Rebuilding menu widget with date: ${widget.menuDay.date.toIso8601String()}");
 
     setMenuItems();
 
