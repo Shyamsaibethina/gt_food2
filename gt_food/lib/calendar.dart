@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_calendar/flutter_advanced_calendar.dart';
-import 'package:gt_food/menuURL.dart';
 
 class Calendar extends StatefulWidget {
-  ValueNotifier<DateTime> dateTime;
+  final ValueNotifier<DateTime> dateTime;
 
-  Calendar(this.dateTime);
+  const Calendar(this.dateTime);
 
   @override
   State<StatefulWidget> createState() => _CalendarState();

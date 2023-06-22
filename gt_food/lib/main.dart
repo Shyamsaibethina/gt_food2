@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
 
   Model? model;
   final MenuURL _menuURL = MenuURL(
-      ValueNotifier<String>(DiningHall.westVillage),
+      ValueNotifier<String>(DiningHall.brittain),
       ValueNotifier<String>(Meal.lunch),
       ValueNotifier<DateTime>(DateTime.now()));
 
@@ -31,11 +31,12 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         body: Column(
           children: [
-            SafeArea(bottom: false, child: Calendar(_menuURL.dateTime)),
-            ValueListenableBuilder2(
-              first: _menuURL.dateTime,
-              second: _menuURL.diningHall,
-              builder: (context, dateTime, diningHall) {
+            SafeArea(child: Calendar(_menuURL.dateTime)),
+            AnimatedBuilder(
+              animation: Listenable.merge(
+                  [_menuURL.dateTime, _menuURL.meal, _menuURL.diningHall]),
+              builder: (BuildContext context, _) {
+                print("here!");
                 return FutureBuilder<void>(
                   future: _refreshModel(),
                   builder:
@@ -71,30 +72,4 @@ class MyApp extends StatelessWidget {
       ),
     );
   }
-}
-
-class ValueListenableBuilder2<A, B> extends StatelessWidget {
-  const ValueListenableBuilder2({
-    required this.first,
-    required this.second,
-    Key? key,
-    required this.builder,
-  }) : super(key: key);
-
-  final ValueNotifier<A> first;
-  final ValueNotifier<B> second;
-  final Widget Function(BuildContext context, A a, B b) builder;
-
-  @override
-  Widget build(BuildContext context) => ValueListenableBuilder<A>(
-        valueListenable: first,
-        builder: (_, a, __) {
-          return ValueListenableBuilder<B>(
-            valueListenable: second,
-            builder: (context, b, __) {
-              return builder(context, a, b);
-            },
-          );
-        },
-      );
 }
