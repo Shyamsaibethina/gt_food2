@@ -16,9 +16,10 @@ class MyApp extends StatelessWidget {
 
   Model? model;
   final MenuURL _menuURL = MenuURL(
-      ValueNotifier<String>(DiningHall.westVillage),
-      ValueNotifier<String>(Meal.lunch),
-      ValueNotifier<DateTime>(DateTime.now()));
+    ValueNotifier<String>(DiningHall.brittain),
+    ValueNotifier<String>(Meal.lunch),
+    ValueNotifier<DateTime>(DateTime.now())
+  );
 
   Future<void> _refreshModel() async {
     model = await ApiService.getDiningHallMenu(_menuURL);
@@ -32,10 +33,16 @@ class MyApp extends StatelessWidget {
         body: Column(
           children: [
             SafeArea(child: Calendar(_menuURL.dateTime)),
-            ValueListenableBuilder2(
-              first: _menuURL.dateTime,
-              second: _menuURL.diningHall,
-              builder: (context, dateTime, diningHall) {
+            AnimatedBuilder(
+              animation: Listenable.merge(
+                [
+                  _menuURL.dateTime,
+                  _menuURL.meal,
+                  _menuURL.diningHall
+                ]
+              ),
+              builder: (BuildContext context, _) {
+                print("here!");
                 return FutureBuilder<void>(
                   future: _refreshModel(),
                   builder:
@@ -51,55 +58,10 @@ class MyApp extends StatelessWidget {
                 );
               },
             ),
-            SafeArea(
-                child: SizedBox(
-                    height: 45, child: BottomTab(_menuURL.diningHall))),
+            SafeArea(child: SizedBox(height: 45, child: BottomTab(_menuURL.diningHall))),
           ],
         ),
       ),
     );
   }
 }
-
-class ValueListenableBuilder2<A, B> extends StatelessWidget {
-  const ValueListenableBuilder2({
-    required this.first,
-    required this.second,
-    Key? key,
-    required this.builder,
-    // required this.menu,
-    // required this.refreshModel,
-  }) : super(key: key);
-
-  final ValueNotifier<A> first;
-  final ValueNotifier<B> second;
-  final Widget Function(BuildContext context, A a, B b) builder;
-  // final Menu menu;
-  // final Future<void> Function() refreshModel;
-
-  @override
-  Widget build(BuildContext context) => ValueListenableBuilder<A>(
-        valueListenable: first,
-        builder: (_, a, __) {
-          return ValueListenableBuilder<B>(
-            valueListenable: second,
-            builder: (context, b, __) {
-              return builder(context, a, b);
-            },
-          );
-        },
-      );
-}
-
-// return FutureBuilder<void>(
-//                 future: refreshModel(),
-//                 builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
-//                   if (snapshot.connectionState == ConnectionState.waiting) {
-//                     return const CircularProgressIndicator();
-//                   } else {
-//                     return Expanded(
-//                       child: Menu(model!.getMenuDay(_menuURL.dateTime.value)),
-//                     );
-//                   }
-//                 },
-//               );

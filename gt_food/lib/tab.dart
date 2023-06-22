@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:gt_food/constants.dart';
 
 class BottomTab extends StatelessWidget {
-  BottomTab(this.diningHall, {super.key});
-  ValueNotifier<String> diningHall;
+  BottomTab(this._diningHall, {super.key});
+  final ValueNotifier<String> _diningHall;
 
   @override
   Widget build(BuildContext context) {
@@ -36,12 +36,12 @@ class BottomTab extends StatelessWidget {
               )),
             ],
             onTap: (value) => {
-              if (value == 0)
-                {diningHall.value = DiningHall.brittain}
+              if (value == 0) 
+                {_diningHall.value = DiningHall.brittain}
               else if (value == 1)
-                {diningHall.value = DiningHall.northAve}
+                {_diningHall.value = DiningHall.northAve}
               else
-                {diningHall.value = DiningHall.westVillage}
+                {_diningHall.value = DiningHall.westVillage}
             },
           ),
         ));
