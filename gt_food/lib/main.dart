@@ -48,7 +48,7 @@ class MyApp extends StatelessWidget {
                         child: CircularProgressIndicator(),
                       ));
                     } else {
-                      if (model!.getMenuDay(_menuURL.dateTime.value) == null) {
+                      if (model == null) {
                         return const Expanded(
                             child: Align(
                           alignment: Alignment.center,
@@ -56,8 +56,7 @@ class MyApp extends StatelessWidget {
                         ));
                       }
                       return Expanded(
-                        child:
-                            Menu(model!.getMenuDay(_menuURL.dateTime.value)!),
+                        child: Menu(model!.getMenuDay(_menuURL.dateTime.value)),
                       );
                     }
                   },
