@@ -1,8 +1,9 @@
 import 'dart:collection';
 
+import 'package:gt_food/menuIcon.dart';
 import 'package:gt_food/model.dart';
 import 'package:sticky_headers/sticky_headers.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Icon;
 
 class Menu extends StatefulWidget {
   final Day menuDay;
@@ -13,21 +14,26 @@ class Menu extends StatefulWidget {
 }
 
 class _MenuState extends State<Menu> {
-  HashMap<HallLocation, List<MenuItem>> _menuItems = HashMap();
-
+  final HashMap<HallLocation, List<MenuItem>> _menuItems = HashMap();
+  final HashMap<int, List<MenuIcon>> _menuIcons = HashMap();
   //TODO: don't reuse code
   void setMenuItems() {
     // get all menu items for the current day
-    List<MenuItem> _rawMenuItems = widget.menuDay.menuItems;
+    List<MenuItem> rawMenuItems = widget.menuDay.menuItems;
 
-    // populate menu items hashmap
+    // populate data structures
     HallLocation currentKey = HallLocation.EMPTY;
-    for (MenuItem m in _rawMenuItems) {
+    for (MenuItem m in rawMenuItems) {
       if (m.isSectionTitle) {
         currentKey = m.text!;
         _menuItems.putIfAbsent(currentKey, () => <MenuItem>[]);
       } else {
         _menuItems[currentKey]!.add(m);
+        for (Icon i in m.food!.icons.myplateIcons + m.food!.icons.foodIcons) {
+          _menuIcons
+              .putIfAbsent(m.id, () => <MenuIcon>[])
+              .add(MenuIcon(i.sprite.className));
+        }
       }
     }
 
@@ -70,11 +76,22 @@ class _MenuState extends State<Menu> {
                       return Container(
                         height: 50,
                         child: Center(
-                            child: Text(_menuItems[key]![index].food!.name)),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: <Widget>[
+                              Text(_menuItems[key]![index].food!.name),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: _menuIcons[_menuItems[key]![index].id]!,
+                              )
+                            ],
+                          ),
+                        ),
                       );
                     },
                     separatorBuilder: (context, index) {
-                      return VerticalDivider(
+                      return const VerticalDivider(
                         thickness: 3.0,
                       );
                     },

@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class ApiConstants {
   static String baseUrl =
       "https://techdining.api.nutrislice.com/menu/api/weeks/school/";
@@ -16,4 +18,11 @@ class Meal {
   static const String breakfast = "breakfast";
   static const String lunch = "lunch";
   static const String dinner = "dinner";
+}
+
+class MyPlateColor {
+  static const Color dairy = Color.fromARGB(255, 80, 131, 197);
+  static const Color fruits = Color.fromARGB(255, 197, 52, 47);
+  static const Color vegetables = Color.fromARGB(255, 131, 181, 84);
+  static const Color protein = Color.fromARGB(255, 91, 73, 143);
 }
