@@ -4,10 +4,11 @@ import 'package:gt_food/menuIcon.dart';
 import 'package:gt_food/model.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 import 'package:flutter/material.dart' hide Icon;
+import 'package:gt_food/food_card.dart';
 
 class Menu extends StatefulWidget {
   final Day menuDay;
-  Menu(this.menuDay);
+  const Menu(this.menuDay, {super.key});
 
   @override
   State<StatefulWidget> createState() => _MenuState();
@@ -60,7 +61,7 @@ class _MenuState extends State<Menu> {
                 header: Container(
                   height: 50.0,
                   color: Colors.blueGrey[700],
-                  padding: EdgeInsets.symmetric(horizontal: 16.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   alignment: Alignment.centerLeft,
                   child: Text(
                     key.toString(),
@@ -73,26 +74,19 @@ class _MenuState extends State<Menu> {
                     scrollDirection: Axis.horizontal,
                     itemCount: _menuItems[key]!.length,
                     itemBuilder: (context, index) {
-                      return Container(
+                      return SizedBox(
                         height: 50,
-                        child: Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: <Widget>[
-                              Text(_menuItems[key]![index].food!.name),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: _menuIcons[_menuItems[key]![index].id]!,
-                              )
-                            ],
-                          ),
+                        child: FoodCard(
+                          _menuItems,
+                          _menuIcons,
+                          key,
+                          index,
                         ),
                       );
                     },
                     separatorBuilder: (context, index) {
                       return const VerticalDivider(
-                        thickness: 3.0,
+                        thickness: 0,
                       );
                     },
                   ),

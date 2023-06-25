@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         body: Column(
           children: [
-            SafeArea(child: Calendar(_menuURL.dateTime)),
+            SafeArea(bottom: false, child: Calendar(_menuURL.dateTime)),
             AnimatedBuilder(
               animation: Listenable.merge(
                   [_menuURL.dateTime, _menuURL.meal, _menuURL.diningHall]),
