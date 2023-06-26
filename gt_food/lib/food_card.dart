@@ -19,8 +19,7 @@ class FoodCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
-        gradient:
-            RadialGradient(colors: [Color(0xFF5FA8D3), Color(0xFFFCD0A1)]),
+        color: Color(0xFFFCD0A1),
         borderRadius: BorderRadius.all(Radius.circular(15)),
       ),
       width: 150,
@@ -33,9 +32,9 @@ class FoodCard extends StatelessWidget {
               menuItems[hallLocation]![index].food!.name,
               textAlign: TextAlign.center,
               style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
+                  fontSize: 20,
+                  fontWeight: FontWeight.w900,
+                  color: Colors.white),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

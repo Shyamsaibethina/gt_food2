@@ -60,7 +60,7 @@ class _MenuState extends State<Menu> {
               return StickyHeader(
                 header: Container(
                   height: 50.0,
-                  color: Colors.blueGrey[700],
+                  color: const Color(0xFF5FA8D3),
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   alignment: Alignment.centerLeft,
                   child: Text(
@@ -87,6 +87,7 @@ class _MenuState extends State<Menu> {
                     separatorBuilder: (context, index) {
                       return const VerticalDivider(
                         thickness: 0,
+                        color: Colors.transparent,
                       );
                     },
                   ),
