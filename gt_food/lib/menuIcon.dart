@@ -101,13 +101,7 @@ class MenuIcon extends StatelessWidget {
           fit: BoxFit.none,
           scale: _scale);
     } else {
-      // MyPlate icon
-      w = Container(
-        width: 36,
-        height: 36,
-        decoration: BoxDecoration(
-            shape: BoxShape.circle, color: _iconMap[iconType]![0] as Color),
-      );
+      w = Container();
     }
 
     return w;

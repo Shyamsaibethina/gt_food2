@@ -32,21 +32,20 @@ class _CalendarState extends State<Calendar> {
       data: theme.copyWith(
         textTheme: theme.textTheme.copyWith(
           titleMedium: theme.textTheme.titleMedium!.copyWith(
-            fontSize: 12,
-            color: theme.colorScheme.secondary,
+            fontSize: 15,
+            color: const Color(0xFF5FA8D3),
           ),
           bodyLarge: theme.textTheme.bodyLarge!.copyWith(
-            fontSize: 12,
+            fontSize: 15,
             color: Colors.black54,
           ),
           bodyMedium: theme.textTheme.bodyMedium!.copyWith(
-            fontSize: 12,
+            fontSize: 15,
             color: Colors.black87,
           ),
         ),
-        primaryColor: Colors.red,
+        primaryColor: const Color(0xFFFCD0A1),
         highlightColor: Colors.yellow,
-        disabledColor: Colors.green,
       ),
       child: AdvancedCalendar(
         controller: _controller,

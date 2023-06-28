@@ -36,7 +36,6 @@ class MyApp extends StatelessWidget {
               animation: Listenable.merge(
                   [_menuURL.dateTime, _menuURL.meal, _menuURL.diningHall]),
               builder: (BuildContext context, _) {
-                print("here!");
                 return FutureBuilder<void>(
                   future: _refreshModel(),
                   builder:

@@ -17,6 +17,7 @@ class Menu extends StatefulWidget {
 class _MenuState extends State<Menu> {
   final HashMap<HallLocation, List<MenuItem>> _menuItems = HashMap();
   final HashMap<int, List<MenuIcon>> _menuIcons = HashMap();
+
   //TODO: don't reuse code
   void setMenuItems() {
     // get all menu items for the current day
@@ -39,6 +40,57 @@ class _MenuState extends State<Menu> {
     }
 
     setState(() {});
+  }
+
+  String getStringHeaders(HallLocation hallLocation) {
+    switch (hallLocation) {
+      case HallLocation.WHITE_GOLD_GRILL:
+        return "White Gold Grill";
+      case HallLocation.GINGER_SPICE:
+        return "Ginger Spice";
+      case HallLocation.VEGAN_VEGETARIAN:
+        return "Vegan Vegetarian";
+      case HallLocation.LEANING_TOWER:
+        return "Leaning Tower";
+      case HallLocation.MINDFUL_BYTES:
+        return "Mindful Bytes";
+      case HallLocation.TECH_TAQUERIA:
+        return "Tech Taqueria";
+      case HallLocation.FRUIT:
+        return "Fruit";
+      case HallLocation.RAMBLIN_COFFEE_SWEETS:
+        return "Ramblin' Coffee & Sweets";
+      case HallLocation.YOGURT:
+        return "Yogurt";
+      case HallLocation.BAKED_GOODS:
+        return "Baked Goods";
+      case HallLocation.SIDEWAYS_DINER:
+        return "Sideways Diner";
+      case HallLocation.GLOBAL_CONNECTION:
+        return "Global Connection";
+      case HallLocation.ACTION_EXPO:
+        return "Action Expo";
+      case HallLocation.HOME_NETWORK:
+        return "Home Network";
+      case HallLocation.PI_ZONE:
+        return "Pi Zone";
+      case HallLocation.WELLNESS_INNOVATION:
+        return "Wellness Innovation";
+      case HallLocation.BUZZIN_BLENDS:
+        return "Buzzin' Blends";
+      case HallLocation.SOUP_OF_THE_DAY:
+        return "Soup of the Day";
+      case HallLocation.ENGINEERED_SALADS:
+        return "Engineered Salads";
+      case HallLocation.FRESH_CUT_SALADS:
+        return "Fresh Cut Salads";
+      case HallLocation.DRESSINGS:
+        return "Dressings";
+      case HallLocation.HI_REZ_PASTRIES:
+        return "Hi-Rez Pastries";
+      default:
+        return "Empty";
+    }
   }
 
   @override
@@ -64,8 +116,11 @@ class _MenuState extends State<Menu> {
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    key.toString(),
-                    style: const TextStyle(color: Colors.white),
+                    getStringHeaders(key),
+                    style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold),
                   ),
                 ),
                 content: Container(
