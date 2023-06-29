@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:gt_food/menuIcon.dart';
 import 'package:gt_food/model.dart';
 import 'package:flutter/material.dart' hide Icon;
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class FoodCard extends StatelessWidget {
   HashMap<HallLocation, List<MenuItem>> menuItems;
@@ -19,19 +20,7 @@ class FoodCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
         onTap: () {
-          showDialog(
-              context: context,
-              builder: (context) => AlertDialog(
-                    content: Text("More info food"),
-                    actions: [
-                      TextButton(
-                        child: Text("OK"),
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                      )
-                    ],
-                  ));
+          _onAlertButtonPressed(context);
         },
         child: Container(
           decoration: const BoxDecoration(
@@ -60,5 +49,52 @@ class FoodCard extends StatelessWidget {
             ),
           ),
         ));
+  }
+
+  _onAlertButtonPressed(context) {
+    Alert(
+      context: context,
+      type: AlertType.info,
+      title: menuItems[hallLocation]![index].food!.name,
+      desc: menuItems[hallLocation]![index].food!.description.name,
+      content: Column(
+        children: <Widget>[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: menuIcons[menuItems[hallLocation]![index].id]!,
+          ),
+          Text(
+              "Calories: ${menuItems[hallLocation]![index].food!.aggregatedData.calories}"),
+          Text(
+              "Serving Size: ${menuItems[hallLocation]![index].food!.servingSizeInfo.servingSizeUnit}"),
+        ],
+      ),
+      alertAnimation: fadeAlertAnimation,
+      buttons: [
+        DialogButton(
+          onPressed: () => Navigator.pop(context),
+          width: 120,
+          color: const Color(0xFF5FA8D3),
+          child: const Text(
+            "Done",
+            style: TextStyle(color: Colors.white, fontSize: 20),
+          ),
+        )
+      ],
+    ).show();
+  }
+
+  Widget fadeAlertAnimation(
+    BuildContext context,
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+    Widget child,
+  ) {
+    return Align(
+      child: FadeTransition(
+        opacity: animation,
+        child: child,
+      ),
+    );
   }
 }

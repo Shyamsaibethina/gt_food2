@@ -44,8 +44,8 @@ class _CalendarState extends State<Calendar> {
             color: Colors.black87,
           ),
         ),
-        primaryColor: const Color(0xFFFCD0A1),
-        highlightColor: Colors.yellow,
+        primaryColor: const Color(0xFF5FA8D3),
+        highlightColor: const Color(0xFFFCD0A1),
       ),
       child: AdvancedCalendar(
         controller: _controller,
