@@ -33,18 +33,33 @@ class FoodCard extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                Text(
-                  menuItems[hallLocation]![index].food!.name,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w900,
-                      color: Colors.white),
+                Flexible(
+                  flex: 1,
+                  child: Text(
+                    menuItems[hallLocation]![index].food!.name,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w900,
+                        color: Colors.white),
+                  ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: menuIcons[menuItems[hallLocation]![index].id]!,
-                )
+                Flexible(
+                  flex: 2,
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                    child: GridView.count(
+                      physics: const NeverScrollableScrollPhysics(),
+                      crossAxisCount: 3,
+                      children: menuIcons[menuItems[hallLocation]![index].id]!
+                          .map((widget) {
+                        return Center(
+                            child: Transform.scale(scale: 0.8, child: widget));
+                      }).toList(),
+                    ),
+                    //)
+                  ),
+                ),
               ],
             ),
           ),

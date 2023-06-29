@@ -80,30 +80,18 @@ class MenuIcon extends StatelessWidget {
     ClassName.GRAIN_GROUP: [
       const Size(39.41, 36),
       const Alignment(0.7464524576241196 * 2 - 1, 0.12838709677419354 * 2 - 1)
-    ],
-    ClassName.PROTEIN_GROUP: [MyPlateColor.protein],
-    ClassName.VEGETABLE_GROUP: [MyPlateColor.vegetables],
-    ClassName.DAIRY_GROUP: [MyPlateColor.dairy],
-    ClassName.FRUIT_GROUP: [MyPlateColor.fruits]
+    ]
   });
 
   MenuIcon(this.iconType, {super.key});
 
   @override
   Widget build(BuildContext context) {
-    Widget w;
-    if (_iconMap[iconType]!.length == 2) {
-      // food icon
-      w = Image.asset('assets/images/icons.png',
+    return Image.asset('assets/images/icons.png',
           width: (_iconMap[iconType]![0] as Size).width,
           height: (_iconMap[iconType]![0] as Size).height,
           alignment: _iconMap[iconType]![1] as Alignment,
           fit: BoxFit.none,
           scale: _scale);
-    } else {
-      w = Container();
-    }
-
-    return w;
   }
 }
