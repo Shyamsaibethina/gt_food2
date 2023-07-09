@@ -2,6 +2,7 @@ import 'dart:collection';
 
 import 'package:gt_food/menuIcon.dart';
 import 'package:gt_food/model.dart';
+import 'package:logger/logger.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 import 'package:flutter/material.dart' hide Icon;
 import 'package:gt_food/food_card.dart';
@@ -23,11 +24,15 @@ class _MenuState extends State<Menu> {
     // get all menu items for the current day
     List<MenuItem> rawMenuItems = widget.menuDay.menuItems;
 
+    var logger = Logger();
+    logger.d("Populating menu data structures...");
+
     // populate data structures
     HallLocation currentKey = HallLocation.EMPTY;
     for (MenuItem m in rawMenuItems) {
       if (m.isSectionTitle) {
-        currentKey = m.text!;
+        logger.d(m.text);
+        currentKey = m.text != null ? m.text! : HallLocation.EMPTY;
         _menuItems.putIfAbsent(currentKey, () => <MenuItem>[]);
       } else {
         _menuItems[currentKey]!.add(m);
@@ -39,6 +44,8 @@ class _MenuState extends State<Menu> {
       }
     }
 
+    logger.d("Finished populating menu data structures!");
+
     setState(() {});
   }
 
@@ -46,6 +53,8 @@ class _MenuState extends State<Menu> {
     switch (hallLocation) {
       case HallLocation.WHITE_GOLD_GRILL:
         return "White Gold Grill";
+      case HallLocation.GRILL_TOPPINGS:
+        return "Grill Toppings";
       case HallLocation.GINGER_SPICE:
         return "Ginger Spice";
       case HallLocation.VEGAN_VEGETARIAN:
@@ -58,8 +67,10 @@ class _MenuState extends State<Menu> {
         return "Tech Taqueria";
       case HallLocation.FRUIT:
         return "Fruit";
-      case HallLocation.RAMBLIN_COFFEE_SWEETS:
-        return "Ramblin' Coffee & Sweets";
+      case HallLocation.RAMBLIN_COFFEE:
+        return "Ramblin' Coffee";
+      case HallLocation.RAMBLIN_SWEETS:
+        return "Ramblin' Sweets";
       case HallLocation.YOGURT:
         return "Yogurt";
       case HallLocation.BAKED_GOODS:
