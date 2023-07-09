@@ -2,7 +2,6 @@ import 'dart:collection';
 
 import 'package:gt_food/menuIcon.dart';
 import 'package:gt_food/model.dart';
-import 'package:logger/logger.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 import 'package:flutter/material.dart' hide Icon;
 import 'package:gt_food/food_card.dart';
@@ -24,15 +23,11 @@ class _MenuState extends State<Menu> {
     // get all menu items for the current day
     List<MenuItem> rawMenuItems = widget.menuDay.menuItems;
 
-    var logger = Logger();
-    logger.d("Populating menu data structures...");
-
     // populate data structures
     HallLocation currentKey = HallLocation.EMPTY;
     for (MenuItem m in rawMenuItems) {
       if (m.isSectionTitle) {
-        logger.d(m.text);
-        currentKey = m.text != null ? m.text! : HallLocation.EMPTY;
+        currentKey = m.text ?? HallLocation.EMPTY;
         _menuItems.putIfAbsent(currentKey, () => <MenuItem>[]);
       } else {
         _menuItems[currentKey]!.add(m);
@@ -43,8 +38,6 @@ class _MenuState extends State<Menu> {
         }
       }
     }
-
-    logger.d("Finished populating menu data structures!");
 
     setState(() {});
   }

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:gt_food/menuIcon.dart';
 import 'package:gt_food/model.dart';
 import 'package:flutter/material.dart' hide Icon;
+import 'package:logger/logger.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 class FoodCard extends StatelessWidget {
@@ -34,7 +35,7 @@ class FoodCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 Flexible(
-                  flex: 1,
+                  flex: 2,
                   child: Text(
                     menuItems[hallLocation]![index].food!.name,
                     textAlign: TextAlign.center,
@@ -45,21 +46,39 @@ class FoodCard extends StatelessWidget {
                   ),
                 ),
                 Flexible(
-                  flex: 2,
+                  flex: 6,
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
                     child: GridView.count(
-                      physics: const NeverScrollableScrollPhysics(),
-                      crossAxisCount: 3,
-                      children: menuIcons[menuItems[hallLocation]![index].id]!
-                          .map((widget) {
-                        return Center(
-                            child: Transform.scale(scale: 0.8, child: widget));
-                      }).toList(),
-                    ),
+                        physics: const NeverScrollableScrollPhysics(),
+                        crossAxisCount: 2,
+                        children:
+                            (menuIcons[menuItems[hallLocation]![index].id] ??
+                                    [])
+                                .take(4)
+                                .map((widget) {
+                          return Center(
+                              child: Transform.scale(scale: 1, child: widget));
+                        }).toList() // Add ellipsis
+                        ),
                     //)
                   ),
                 ),
+                Flexible(
+                  flex: 1,
+                  child: ((menuIcons[menuItems[hallLocation]![index].id] ?? [])
+                              .length >
+                          4)
+                      ? const Text(
+                          '...',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w900,
+                            color: Colors.white,
+                          ),
+                        )
+                      : const SizedBox.shrink(),
+                )
               ],
             ),
           ),
@@ -76,7 +95,7 @@ class FoodCard extends StatelessWidget {
         children: <Widget>[
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: menuIcons[menuItems[hallLocation]![index].id]!,
+            children: menuIcons[menuItems[hallLocation]![index].id] ?? [],
           ),
           Text(
               "Calories: ${menuItems[hallLocation]![index].food!.aggregatedData.calories}"),
