@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print
 import 'package:flutter/material.dart';
 import 'package:gt_food/api_service.dart';
+import 'package:gt_food/meal_picker.dart';
 import 'package:gt_food/menuIcon.dart';
 import 'package:gt_food/menuURL.dart';
 import 'package:gt_food/model.dart';
@@ -62,7 +63,9 @@ class MyApp extends StatelessWidget {
                 );
               },
             ),
+            MealPicker(_menuURL.meal),
             SafeArea(
+                //top: false,
                 child: SizedBox(
                     height: 45, child: BottomTab(_menuURL.diningHall))),
           ],

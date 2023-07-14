@@ -216,7 +216,18 @@ class MenuItem {
       };
 }
 
-enum Category { EMPTY, GRAIN, DESSERT, ENTREE, SIDE, CONDIMENT, SALAD }
+enum Category {
+  EMPTY,
+  GRAIN,
+  DESSERT,
+  ENTREE,
+  SIDE,
+  CONDIMENT,
+  SALAD,
+  VEGETABLE,
+  MEAT,
+  OTHER
+}
 
 final categoryValues = EnumValues({
   "condiment": Category.CONDIMENT,
@@ -225,7 +236,10 @@ final categoryValues = EnumValues({
   "entree": Category.ENTREE,
   "grain": Category.GRAIN,
   "side": Category.SIDE,
-  "salad": Category.SALAD
+  "salad": Category.SALAD,
+  "vegetable": Category.VEGETABLE,
+  "meat": Category.MEAT,
+  "other": Category.OTHER
 });
 
 class Food {
