@@ -25,8 +25,10 @@ class _MealPickerState extends State<MealPicker> {
           Center(
             child: Text(
               meal,
-              style: theme.textTheme.bodyLarge!
-                  .copyWith(color: const Color(0xFF5FA8D3)),
+              style: theme.textTheme.bodyMedium!.copyWith(
+                  fontSize: 30,
+                  color: const Color(0xFF5FA8D3),
+                  fontWeight: FontWeight.w600),
             ),
           ),
       ],
@@ -34,39 +36,5 @@ class _MealPickerState extends State<MealPicker> {
         widget.meal.value = _meals[index].toLowerCase();
       },
     ));
-    // return Container(
-    //   height: 50,
-    //   child: ListView.builder(
-    //     scrollDirection: Axis.horizontal,
-    //     itemCount: _meals.length,
-    //     itemBuilder: (context, index) {
-    //       final String currentMeal = _meals[index];
-    //       return GestureDetector(
-    //         onTap: () {
-    //           widget.meal.value = currentMeal.toLowerCase();
-    //         },
-    //         child: Container(
-    //           width: 100,
-    //           decoration: BoxDecoration(
-    //             color: currentMeal == meal
-    //                 ? const Color(0xFF5FA8D3)
-    //                 : Colors.transparent,
-    //             borderRadius: BorderRadius.circular(10),
-    //           ),
-    //           child: Center(
-    //             child: Text(
-    //               currentMeal,
-    //               style: theme.textTheme.bodyMedium!.copyWith(
-    //                 color: currentMeal == meal
-    //                     ? Colors.white
-    //                     : const Color(0xFF5FA8D3),
-    //               ),
-    //             ),
-    //           ),
-    //         ),
-    //       );
-    //     },
-    //   ),
-    // );
   }
 }

@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
   Model? model;
   final MenuURL _menuURL = MenuURL(
       ValueNotifier<String>(DiningHall.brittain),
-      ValueNotifier<String>(Meal.lunch),
+      ValueNotifier<String>(Meal.breakfast),
       ValueNotifier<DateTime>(DateTime.now()));
 
   Future<void> _refreshModel() async {
@@ -63,9 +63,11 @@ class MyApp extends StatelessWidget {
                 );
               },
             ),
-            MealPicker(_menuURL.meal),
+            SizedBox(
+                width: double.infinity,
+                height: 45,
+                child: MealPicker(_menuURL.meal)),
             SafeArea(
-                //top: false,
                 child: SizedBox(
                     height: 45, child: BottomTab(_menuURL.diningHall))),
           ],

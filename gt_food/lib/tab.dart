@@ -36,7 +36,7 @@ class BottomTab extends StatelessWidget {
               )),
             ],
             onTap: (value) => {
-              if (value == 0) 
+              if (value == 0)
                 {_diningHall.value = DiningHall.brittain}
               else if (value == 1)
                 {_diningHall.value = DiningHall.northAve}
