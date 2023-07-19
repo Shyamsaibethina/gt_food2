@@ -30,7 +30,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter layout demo',
       home: Scaffold(
-        body: Column(
+          body: SafeArea(
+        child: Column(
           children: [
             SafeArea(bottom: false, child: Calendar(_menuURL.dateTime)),
             AnimatedBuilder(
@@ -67,12 +68,13 @@ class MyApp extends StatelessWidget {
                 width: double.infinity,
                 height: 45,
                 child: MealPicker(_menuURL.meal)),
-            SafeArea(
-                child: SizedBox(
-                    height: 45, child: BottomTab(_menuURL.diningHall))),
+            SizedBox(
+              height: 45,
+              child: BottomTab(_menuURL.diningHall),
+            ),
           ],
         ),
-      ),
+      )),
     );
   }
 }
