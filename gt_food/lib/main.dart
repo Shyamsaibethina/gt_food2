@@ -28,49 +28,52 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter layout demo',
       home: Scaffold(
           body: SafeArea(
-        child: Column(
+        child: Stack(
           children: [
-            SafeArea(bottom: false, child: Calendar(_menuURL.dateTime)),
-            AnimatedBuilder(
-              animation: Listenable.merge(
-                  [_menuURL.dateTime, _menuURL.meal, _menuURL.diningHall]),
-              builder: (BuildContext context, _) {
-                return FutureBuilder<void>(
-                  future: _refreshModel(),
-                  builder:
-                      (BuildContext context, AsyncSnapshot<void> snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const Expanded(
-                          child: Align(
-                        alignment: Alignment.center,
-                        child: CircularProgressIndicator(),
-                      ));
-                    } else {
-                      if (model == null) {
+            Column(children: [
+              SafeArea(bottom: false, child: Calendar(_menuURL.dateTime)),
+              AnimatedBuilder(
+                animation: Listenable.merge(
+                    [_menuURL.dateTime, _menuURL.meal, _menuURL.diningHall]),
+                builder: (BuildContext context, _) {
+                  return FutureBuilder<void>(
+                    future: _refreshModel(),
+                    builder:
+                        (BuildContext context, AsyncSnapshot<void> snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
                         return const Expanded(
                             child: Align(
                           alignment: Alignment.center,
-                          child: Text('No menu available'),
+                          child: CircularProgressIndicator(),
                         ));
+                      } else {
+                        if (model == null) {
+                          return const Expanded(
+                              child: Align(
+                            alignment: Alignment.center,
+                            child: Text('No menu available'),
+                          ));
+                        }
+                        return Expanded(
+                          child:
+                              Menu(model!.getMenuDay(_menuURL.dateTime.value)),
+                        );
                       }
-                      return Expanded(
-                        child: Menu(model!.getMenuDay(_menuURL.dateTime.value)),
-                      );
-                    }
-                  },
-                );
-              },
-            ),
-            SizedBox(
-                width: double.infinity,
+                    },
+                  );
+                },
+              ),
+              SizedBox(
                 height: 45,
-                child: MealPicker(_menuURL.meal)),
-            SizedBox(
-              height: 45,
-              child: BottomTab(_menuURL.diningHall),
+                child: BottomTab(_menuURL.diningHall),
+              ),
+            ]),
+            Positioned(
+              bottom: 50,
+              left: 5,
+              child: MealPicker(_menuURL.meal),
             ),
           ],
         ),
