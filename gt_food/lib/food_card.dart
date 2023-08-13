@@ -1,6 +1,7 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
+import 'package:gt_food/food_alert_content.dart';
 import 'package:gt_food/menuIcon.dart';
 import 'package:gt_food/model.dart';
 import 'package:flutter/material.dart' hide Icon;
@@ -90,48 +91,16 @@ class FoodCard extends StatelessWidget {
   }
 
   _onAlertButtonPressed(context) {
+    const alertStyle = AlertStyle(backgroundColor: Color(0xFF5FA8D3));
     Alert(
       context: context,
-      type: AlertType.info,
+      style: alertStyle,
+      type: AlertType.none,
       title: menuItems[hallLocation]![index].food!.name,
       desc: menuItems[hallLocation]![index].food!.description.name,
-      content: Column(
-        children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: menuIcons[menuItems[hallLocation]![index].id] ?? [],
-          ),
-          Text(
-              "Calories: ${menuItems[hallLocation]![index].food!.roundedNutritionInfo["calories"]}"),
-          Text(
-              "Total Fat: ${menuItems[hallLocation]![index].food!.roundedNutritionInfo["g_fat"]}"),
-          Text(
-              "Total Saturated Fat: ${menuItems[hallLocation]![index].food!.roundedNutritionInfo["g_saturated_fat"]}"),
-          Text(
-              "Total Trans Fat: ${menuItems[hallLocation]![index].food!.roundedNutritionInfo["g_trans_fat"]}"),
-          Text(
-              "Total Cholesterol: ${menuItems[hallLocation]![index].food!.roundedNutritionInfo["mg_cholesterol"]}"),
-          Text(
-              "Total Carbs: ${menuItems[hallLocation]![index].food!.roundedNutritionInfo["g_carbs"]}"),
-          Text(
-              "Total Sugars: ${menuItems[hallLocation]![index].food!.roundedNutritionInfo["g_sugar"]}"),
-          Text(
-              "Total Added Sugars: ${menuItems[hallLocation]![index].food!.roundedNutritionInfo["g_added_sugar"]}"),
-          Text(
-              "Total Sodium: ${menuItems[hallLocation]![index].food!.roundedNutritionInfo["mg_sodium"]}"),
-          Text(
-              "Total Potassium: ${menuItems[hallLocation]![index].food!.roundedNutritionInfo["mg_potassium"]}"),
-          Text(
-              "Total Fiber: ${menuItems[hallLocation]![index].food!.roundedNutritionInfo["g_fiber"]}"),
-          Text(
-              "Total Protein: ${menuItems[hallLocation]![index].food!.roundedNutritionInfo["g_protein"]}"),
-          Text(
-              "Total Iron: ${menuItems[hallLocation]![index].food!.roundedNutritionInfo["mg_iron"]}"),
-          Text(
-              "Total Calcium: ${menuItems[hallLocation]![index].food!.roundedNutritionInfo["mg_calcium"]}"),
-          Text(
-              "Serving Size: ${menuItems[hallLocation]![index].food!.servingSizeInfo.servingSizeUnit}"),
-        ],
+      content: SingleChildScrollView(
+        physics: NeverScrollableScrollPhysics(),
+        child: FoodAlertContent(menuItems, menuIcons, hallLocation, index),
       ),
       alertAnimation: fadeAlertAnimation,
       buttons: [
