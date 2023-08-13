@@ -68,20 +68,44 @@ class FoodAlertContent extends StatelessWidget {
     HashMap<String, double?> nutritionInfo = getNutritionInfo();
     List<Widget> nutritionWidgets = [];
     for (String key in nutritionInfo.keys) {
+      if (nutritionInfo[key] == null) {
+        continue;
+      }
+
       nutritionWidgets.add(
         Container(
           margin: EdgeInsets.only(bottom: 20),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
-                padding: EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  color: Color(0xFFFFFFFF),
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
+              Expanded(
+                flex: 7,
+                child: Container(
+                  padding: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: Color(0xFFFFFFFF),
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "$key",
+                        style: TextStyle(
+                          fontSize: 16.0, // Adjust the value as needed
+                        ),
+                      ),
+                      Text(
+                        "${nutritionInfo[key]!.toInt()}g",
+                        style: TextStyle(
+                          fontSize: 16.0, // Adjust the value as needed
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-                child: Text("$key: ${nutritionInfo[key]}"),
               ),
+              Spacer(flex: 1),
               Text("0%"),
             ],
           ),
@@ -107,9 +131,7 @@ class FoodAlertContent extends StatelessWidget {
         Container(
           height: 200,
           child: SingleChildScrollView(
-            child: Column(
-              children: nutritionWidgets
-            ),
+            child: Column(children: nutritionWidgets),
           ),
         ),
         //...nutritionWidgets,
