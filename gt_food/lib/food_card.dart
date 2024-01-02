@@ -97,7 +97,7 @@ class FoodCard extends StatelessWidget {
       style: alertStyle,
       type: AlertType.none,
       title: menuItems[hallLocation]![index].food!.name,
-      desc: menuItems[hallLocation]![index].food!.description.name,
+      desc: menuItems[hallLocation]![index].food!.description!.name,
       content: SingleChildScrollView(
         physics: NeverScrollableScrollPhysics(),
         child: FoodAlertContent(menuItems, menuIcons, hallLocation, index),

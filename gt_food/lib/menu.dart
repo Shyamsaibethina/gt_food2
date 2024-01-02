@@ -34,7 +34,7 @@ class _MenuState extends State<Menu> {
         for (Icon i in m.food!.icons.foodIcons) {
           _menuIcons
               .putIfAbsent(m.id, () => <MenuIcon>[])
-              .add(MenuIcon(i.sprite.className));
+              .add(MenuIcon(i.sprite.className ?? ClassName.NONE));
         }
       }
     }

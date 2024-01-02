@@ -4,7 +4,10 @@
 
 import 'dart:convert';
 
-Model modelFromJson(String str) => Model.fromJson(json.decode(str));
+Model modelFromJson(String str) {
+  Model model = Model.fromJson(json.decode(str));
+  return model;
+}
 
 String modelToJson(Model data) => json.encode(data.toJson());
 
@@ -25,14 +28,16 @@ class Model {
     required this.boldAllEntreesEnabled,
   });
 
-  factory Model.fromJson(Map<String, dynamic> json) => Model(
-        startDate: DateTime.parse(json["start_date"]),
-        menuTypeId: json["menu_type_id"],
-        days: List<Day>.from(json["days"].map((x) => Day.fromJson(x))),
-        id: json["id"],
-        lastUpdated: DateTime.parse(json["last_updated"]),
-        boldAllEntreesEnabled: json["bold_all_entrees_enabled"],
-      );
+  factory Model.fromJson(Map<String, dynamic> json) {
+    return Model(
+      startDate: DateTime.parse(json["start_date"]),
+      menuTypeId: json["menu_type_id"],
+      days: List<Day>.from(json["days"].map((x) => Day.fromJson(x))),
+      id: json["id"],
+      lastUpdated: DateTime.parse(json["last_updated"]),
+      boldAllEntreesEnabled: json["bold_all_entrees_enabled"],
+    );
+  }
 
   Map<String, dynamic> toJson() => {
         "start_date":
@@ -157,34 +162,36 @@ class MenuItem {
     required this.menuId,
   });
 
-  factory MenuItem.fromJson(Map<String, dynamic> json) => MenuItem(
-        id: json["id"],
-        date: json["date"],
-        position: json["position"],
-        isSectionTitle: json["is_section_title"],
-        bold: json["bold"],
-        featured: json["featured"],
-        text: textValues.map[json["text"]],
-        noLineBreak: json["no_line_break"],
-        blankLine: json["blank_line"],
-        food: json["food"] == null ? null : Food.fromJson(json["food"]),
-        isHoliday: json["is_holiday"],
-        foodList: json["food_list"],
-        stationId: json["station_id"],
-        isStationHeader: json["is_station_header"],
-        stationIsCollapsible: json["station_is_collapsible"],
-        image: json["image"],
-        imageDescription: json["image_description"],
-        imageAlt: json["image_alt"],
-        imageThumbnail: json["image_thumbnail"],
-        category: categoryValues.map[json["category"]]!,
-        price: json["price"]?.toDouble(),
-        servingSize: json["serving_size"],
-        servingSizeAmount: json["serving_size_amount"]?.toDouble(),
-        servingSizeUnit: servingSizeUnitValues.map[json["serving_size_unit"]],
-        smartRecipeId: json["smart_recipe_id"],
-        menuId: json["menu_id"],
-      );
+  factory MenuItem.fromJson(Map<String, dynamic> json) {
+    return MenuItem(
+      id: json["id"],
+      date: json["date"],
+      position: json["position"],
+      isSectionTitle: json["is_section_title"],
+      bold: json["bold"],
+      featured: json["featured"],
+      text: textValues.map[json["text"]],
+      noLineBreak: json["no_line_break"],
+      blankLine: json["blank_line"],
+      food: json["food"] == null ? null : Food.fromJson(json["food"]),
+      isHoliday: json["is_holiday"],
+      foodList: json["food_list"],
+      stationId: json["station_id"],
+      isStationHeader: json["is_station_header"],
+      stationIsCollapsible: json["station_is_collapsible"],
+      image: json["image"],
+      imageDescription: json["image_description"],
+      imageAlt: json["image_alt"],
+      imageThumbnail: json["image_thumbnail"],
+      category: categoryValues.map[json["category"]]!,
+      price: json["price"]?.toDouble(),
+      servingSize: json["serving_size"],
+      servingSizeAmount: json["serving_size_amount"]?.toDouble(),
+      servingSizeUnit: servingSizeUnitValues.map[json["serving_size_unit"]],
+      smartRecipeId: json["smart_recipe_id"],
+      menuId: json["menu_id"],
+    );
+  }
 
   Map<String, dynamic> toJson() => {
         "id": id,
@@ -245,16 +252,16 @@ final categoryValues = EnumValues({
 class Food {
   int id;
   String name;
-  Description description;
+  Description? description;
   String subtext;
   String? imageUrl;
   String? hoverpicUrl;
   double? price;
   String ingredients;
-  Category foodCategory;
+  Category? foodCategory;
   dynamic foodHighlightMessage;
   String fileUrl;
-  DownloadLabel downloadLabel;
+  DownloadLabel? downloadLabel;
   Map<String, double?> roundedNutritionInfo;
   ServingSizeInfo servingSizeInfo;
   bool hasNutritionInfo;
@@ -312,16 +319,16 @@ class Food {
   factory Food.fromJson(Map<String, dynamic> json) => Food(
         id: json["id"],
         name: json["name"],
-        description: descriptionValues.map[json["description"]]!,
+        description: descriptionValues.map[json["description"]],
         subtext: json["subtext"],
         imageUrl: json["image_url"],
         hoverpicUrl: json["hoverpic_url"],
         price: json["price"]?.toDouble(),
         ingredients: json["ingredients"],
-        foodCategory: categoryValues.map[json["food_category"]]!,
+        foodCategory: categoryValues.map[json["food_category"]],
         foodHighlightMessage: json["food_highlight_message"],
         fileUrl: json["file_url"],
-        downloadLabel: downloadLabelValues.map[json["download_label"]]!,
+        downloadLabel: downloadLabelValues.map[json["download_label"]],
         roundedNutritionInfo: Map.from(json["rounded_nutrition_info"])
             .map((k, v) => MapEntry<String, double?>(k, v?.toDouble())),
         servingSizeInfo: ServingSizeInfo.fromJson(json["serving_size_info"]),
@@ -448,7 +455,7 @@ class Icons {
 
 class Icon {
   int id;
-  Name iconSyncedName;
+  Name? iconSyncedName;
   bool iconEnabled;
   Sprite sprite;
   dynamic customIconUrl;
@@ -458,11 +465,11 @@ class Icon {
   bool isFilter;
   bool isHighlight;
   bool isDigitalSignageOnly;
-  PurpleSlug slug;
-  IconSlugEnum iconSlug;
-  Name name;
-  Name syncedName;
-  HelpText helpText;
+  PurpleSlug? slug;
+  IconSlugEnum? iconSlug;
+  Name? name;
+  Name? syncedName;
+  HelpText? helpText;
   int sortOrder;
   bool enabled;
   int foodIconGroup;
@@ -491,7 +498,7 @@ class Icon {
 
   factory Icon.fromJson(Map<String, dynamic> json) => Icon(
         id: json["id"],
-        iconSyncedName: nameValues.map[json["synced_name"]]!,
+        iconSyncedName: nameValues.map[json["synced_name"]],
         iconEnabled: json["enabled"],
         sprite: Sprite.fromJson(json["sprite"]),
         customIconUrl: json["custom_icon_url"],
@@ -501,11 +508,11 @@ class Icon {
         isFilter: json["is_filter"],
         isHighlight: json["is_highlight"],
         isDigitalSignageOnly: json["is_digital_signage_only"],
-        slug: purpleSlugValues.map[json["slug"]]!,
-        iconSlug: iconSlugEnumValues.map[json["icon_slug"]]!,
-        name: nameValues.map[json["name"]]!,
-        syncedName: nameValues.map[json["_synced_name"]]!,
-        helpText: helpTextValues.map[json["help_text"]]!,
+        slug: purpleSlugValues.map[json["slug"]],
+        iconSlug: iconSlugEnumValues.map[json["icon_slug"]],
+        name: nameValues.map[json["name"]],
+        syncedName: nameValues.map[json["_synced_name"]],
+        helpText: helpTextValues.map[json["help_text"]],
         sortOrder: json["sort_order"],
         enabled: json["_enabled"],
         foodIconGroup: json["food_icon_group"],
@@ -746,10 +753,10 @@ final purpleSlugValues = EnumValues({
 });
 
 class Sprite {
-  IconSlugEnum slug;
-  Name name;
-  HelpText helpText;
-  ClassName className;
+  IconSlugEnum? slug;
+  Name? name;
+  HelpText? helpText;
+  ClassName? className;
 
   Sprite({
     required this.slug,
@@ -758,12 +765,14 @@ class Sprite {
     required this.className,
   });
 
-  factory Sprite.fromJson(Map<String, dynamic> json) => Sprite(
-        slug: iconSlugEnumValues.map[json["slug"]]!,
-        name: nameValues.map[json["name"]]!,
-        helpText: helpTextValues.map[json["help_text"]]!,
-        className: classNameValues.map[json["class_name"]]!,
-      );
+  factory Sprite.fromJson(Map<String, dynamic> json) {
+    return Sprite(
+      slug: iconSlugEnumValues.map[json["slug"]],
+      name: nameValues.map[json["name"]],
+      helpText: helpTextValues.map[json["help_text"]],
+      className: classNameValues.map[json["class_name"]],
+    );
+  }
 
   Map<String, dynamic> toJson() => {
         "slug": iconSlugEnumValues.reverse[slug],
@@ -795,7 +804,8 @@ enum ClassName {
   PROTEIN_GROUP,
   VEGETABLE_GROUP,
   DAIRY_GROUP,
-  FRUIT_GROUP
+  FRUIT_GROUP,
+  NONE
 }
 
 final classNameValues = EnumValues({

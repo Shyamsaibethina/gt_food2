@@ -80,6 +80,10 @@ class MenuIcon extends StatelessWidget {
     ClassName.GRAIN_GROUP: [
       const Size(39.41, 36),
       const Alignment(0.7464524576241196 * 2 - 1, 0.12838709677419354 * 2 - 1)
+    ],
+    ClassName.NONE: [
+      const Size(0, 0),
+      const Alignment(0, 0)
     ]
   });
 
