@@ -8,11 +8,12 @@ class ApiService {
   static Future<Model?> getDiningHallMenu(MenuURL menuURL) async {
     try {
       final response = await http.get(menuURL.getURL());
+
       if (response.statusCode == 200) {
         return modelFromJson(response.body);
       }
     } catch (e) {
-      log(e.toString());
+      log("getDiningHallMenu error: " + e.toString());
     }
     return null;
   }

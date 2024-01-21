@@ -31,6 +31,8 @@ class _MenuState extends State<Menu> {
         _menuItems.putIfAbsent(currentKey, () => <MenuItem>[]);
       } else {
         _menuItems[currentKey]!.add(m);
+        print(m.toString());
+        if (m.food == null) continue;
         for (Icon i in m.food!.icons.foodIcons) {
           _menuIcons
               .putIfAbsent(m.id, () => <MenuIcon>[])

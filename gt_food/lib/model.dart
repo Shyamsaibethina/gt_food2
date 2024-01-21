@@ -3,9 +3,11 @@
 // final model = modelFromJson(jsonString);
 
 import 'dart:convert';
+import 'dart:developer';
 
 Model modelFromJson(String str) {
   Model model = Model.fromJson(json.decode(str));
+  log(model.toString());
   return model;
 }
 
@@ -29,6 +31,7 @@ class Model {
   });
 
   factory Model.fromJson(Map<String, dynamic> json) {
+    log("Model fromJson");
     return Model(
       startDate: DateTime.parse(json["start_date"]),
       menuTypeId: json["menu_type_id"],
@@ -65,12 +68,15 @@ class Day {
     required this.menuItems,
   });
 
-  factory Day.fromJson(Map<String, dynamic> json) => Day(
-        date: DateTime.parse(json["date"]),
-        hasUnpublishedMenus: json["has_unpublished_menus"],
-        menuItems: List<MenuItem>.from(
-            json["menu_items"].map((x) => MenuItem.fromJson(x))),
-      );
+  factory Day.fromJson(Map<String, dynamic> json) {
+    log("Day fromJson");
+    return Day(
+      date: DateTime.parse(json["date"]),
+      hasUnpublishedMenus: json["has_unpublished_menus"],
+      menuItems: List<MenuItem>.from(
+          json["menu_items"].map((x) => MenuItem.fromJson(x))),
+    );
+  }
 
   Map<String, dynamic> toJson() => {
         "date":
@@ -91,12 +97,15 @@ class SectionOptions {
     required this.sectionTitleCanExpandCollapse,
   });
 
-  factory SectionOptions.fromJson(Map<String, dynamic> json) => SectionOptions(
-        displayName: json["display_name"] ?? "",
-        useSectionTitle: json["use_section_title"],
-        sectionTitleCanExpandCollapse:
-            json["section_title_can_expand_collapse"],
-      );
+  factory SectionOptions.fromJson(Map<String, dynamic> json) {
+    log("SectionOptions fromJson");
+    return SectionOptions(
+      displayName: json["display_name"] ?? "",
+      useSectionTitle: json["use_section_title"],
+      sectionTitleCanExpandCollapse:
+      json["section_title_can_expand_collapse"],
+    );
+  }
 
   Map<String, dynamic> toJson() => {
         "display_name": displayName,
@@ -118,7 +127,7 @@ class MenuItem {
   Food? food;
   bool isHoliday;
   dynamic foodList;
-  int stationId;
+  int? stationId;
   bool isStationHeader;
   bool stationIsCollapsible;
   String image;
@@ -163,6 +172,7 @@ class MenuItem {
   });
 
   factory MenuItem.fromJson(Map<String, dynamic> json) {
+    log("MenuItem fromJson");
     return MenuItem(
       id: json["id"],
       date: json["date"],
@@ -316,40 +326,43 @@ class Food {
     required this.useCustomSizes,
   });
 
-  factory Food.fromJson(Map<String, dynamic> json) => Food(
-        id: json["id"],
-        name: json["name"],
-        description: descriptionValues.map[json["description"]],
-        subtext: json["subtext"],
-        imageUrl: json["image_url"],
-        hoverpicUrl: json["hoverpic_url"],
-        price: json["price"]?.toDouble(),
-        ingredients: json["ingredients"],
-        foodCategory: categoryValues.map[json["food_category"]],
-        foodHighlightMessage: json["food_highlight_message"],
-        fileUrl: json["file_url"],
-        downloadLabel: downloadLabelValues.map[json["download_label"]],
-        roundedNutritionInfo: Map.from(json["rounded_nutrition_info"])
-            .map((k, v) => MapEntry<String, double?>(k, v?.toDouble())),
-        servingSizeInfo: ServingSizeInfo.fromJson(json["serving_size_info"]),
-        hasNutritionInfo: json["has_nutrition_info"],
-        icons: Icons.fromJson(json["icons"]),
-        iconsApproved: json["icons_approved"],
-        nestedFoods: List<int>.from(json["nested_foods"].map((x) => x)),
-        aggregatedData: AggregatedData.fromJson(json["aggregated_data"]),
-        orderingEnabled: json["ordering_enabled"],
-        foodSizes: List<dynamic>.from(json["food_sizes"].map((x) => x)),
-        dsCaloriesOverride: json["ds_calories_override"],
-        syncedId: json["synced_id"],
-        syncPlaceholder: json["sync_placeholder"],
-        hasOptionsOrSides: json["has_options_or_sides"],
-        digest: json["digest"],
-        posItemId: json["pos_item_id"],
-        smartRecipeId: json["smart_recipe_id"],
-        hasSubfoods: json["has_subfoods"],
-        mealPlanPrice: json["meal_plan_price"],
-        useCustomSizes: json["use_custom_sizes"],
-      );
+  factory Food.fromJson(Map<String, dynamic> json) {
+    log("Food fromJson");
+    return Food(
+      id: json["id"],
+      name: json["name"],
+      description: descriptionValues.map[json["description"]],
+      subtext: json["subtext"],
+      imageUrl: json["image_url"],
+      hoverpicUrl: json["hoverpic_url"],
+      price: json["price"]?.toDouble(),
+      ingredients: json["ingredients"],
+      foodCategory: categoryValues.map[json["food_category"]],
+      foodHighlightMessage: json["food_highlight_message"],
+      fileUrl: json["file_url"],
+      downloadLabel: downloadLabelValues.map[json["download_label"]],
+      roundedNutritionInfo: Map.from(json["rounded_nutrition_info"])
+          .map((k, v) => MapEntry<String, double?>(k, v?.toDouble())),
+      servingSizeInfo: ServingSizeInfo.fromJson(json["serving_size_info"]),
+      hasNutritionInfo: json["has_nutrition_info"],
+      icons: Icons.fromJson(json["icons"]),
+      iconsApproved: json["icons_approved"],
+      nestedFoods: List<int>.from(json["nested_foods"].map((x) => x)),
+      aggregatedData: AggregatedData.fromJson(json["aggregated_data"]),
+      orderingEnabled: json["ordering_enabled"],
+      foodSizes: List<dynamic>.from(json["food_sizes"].map((x) => x)),
+      dsCaloriesOverride: json["ds_calories_override"],
+      syncedId: json["synced_id"],
+      syncPlaceholder: json["sync_placeholder"],
+      hasOptionsOrSides: json["has_options_or_sides"],
+      digest: json["digest"],
+      posItemId: json["pos_item_id"],
+      smartRecipeId: json["smart_recipe_id"],
+      hasSubfoods: json["has_subfoods"],
+      mealPlanPrice: json["meal_plan_price"],
+      useCustomSizes: json["use_custom_sizes"],
+    );
+  }
 
   Map<String, dynamic> toJson() => {
         "id": id,
@@ -400,12 +413,15 @@ class AggregatedData {
     required this.calories,
   });
 
-  factory AggregatedData.fromJson(Map<String, dynamic> json) => AggregatedData(
-        priceAdjustment: json["price_adjustment"].toDouble(),
-        iconsApproved: json["icons_approved"],
-        foodIcons: List<dynamic>.from(json["food_icons"].map((x) => x)),
-        calories: json["calories"].toDouble(),
-      );
+  factory AggregatedData.fromJson(Map<String, dynamic> json) {
+    log("AggregatedData fromJson");
+    return AggregatedData(
+      priceAdjustment: json["price_adjustment"].toDouble(),
+      iconsApproved: json["icons_approved"],
+      foodIcons: List<dynamic>.from(json["food_icons"].map((x) => x)),
+      calories: json["calories"].toDouble(),
+    );
+  }
 
   Map<String, dynamic> toJson() => {
         "price_adjustment": priceAdjustment,
@@ -439,19 +455,22 @@ class Icons {
     required this.myplateIcons,
   });
 
-  factory Icons.fromJson(Map<String, dynamic> json) => Icons(
-        foodIcons:
-            List<Icon>.from(json["food_icons"].map((x) => Icon.fromJson(x))),
-        myplateIcons:
-            List<Icon>.from(json["myplate_icons"].map((x) => Icon.fromJson(x))),
-      );
+  factory Icons.fromJson(Map<String, dynamic> json) {
+    log("Icons fromJson");
+    return Icons(
+      foodIcons:
+      List<Icon>.from(json["food_icons"].map((x) => Icon.fromJson(x))),
+      myplateIcons:
+      List<Icon>.from(json["myplate_icons"].map((x) => Icon.fromJson(x))),
+    );
+  }
 
-  Map<String, dynamic> toJson() => {
-        "food_icons": List<dynamic>.from(foodIcons.map((x) => x.toJson())),
-        "myplate_icons":
-            List<dynamic>.from(myplateIcons.map((x) => x.toJson())),
-      };
-}
+    Map<String, dynamic> toJson() => {
+      "food_icons": List<dynamic>.from(foodIcons.map((x) => x.toJson())),
+      "myplate_icons":
+      List<dynamic>.from(myplateIcons.map((x) => x.toJson())),
+    };
+  }
 
 class Icon {
   int id;
@@ -496,11 +515,14 @@ class Icon {
     required this.foodIconGroup,
   });
 
-  factory Icon.fromJson(Map<String, dynamic> json) => Icon(
+  factory Icon.fromJson(Map<String, dynamic> json) {
+    log("Icon fromJson");
+    log("$json");
+      return Icon(
         id: json["id"],
         iconSyncedName: nameValues.map[json["synced_name"]],
         iconEnabled: json["enabled"],
-        sprite: Sprite.fromJson(json["sprite"]),
+        sprite: Sprite.fromJson(json["sprite"] ?? {}),
         customIconUrl: json["custom_icon_url"],
         customIcon: json["custom_icon"],
         type: json["type"],
@@ -517,6 +539,7 @@ class Icon {
         enabled: json["_enabled"],
         foodIconGroup: json["food_icon_group"],
       );
+  }
 
   Map<String, dynamic> toJson() => {
         "id": id,
@@ -766,6 +789,7 @@ class Sprite {
   });
 
   factory Sprite.fromJson(Map<String, dynamic> json) {
+    log("Sprite fromJson");
     return Sprite(
       slug: iconSlugEnumValues.map[json["slug"]],
       name: nameValues.map[json["name"]],
@@ -842,11 +866,13 @@ class ServingSizeInfo {
     this.servingSizeUnit,
   });
 
-  factory ServingSizeInfo.fromJson(Map<String, dynamic> json) =>
-      ServingSizeInfo(
-        servingSizeAmount: json["serving_size_amount"],
-        servingSizeUnit: servingSizeUnitValues.map[json["serving_size_unit"]],
-      );
+  factory ServingSizeInfo.fromJson(Map<String, dynamic> json) {
+    log("ServingSizeInfo fromJson");
+    return ServingSizeInfo(
+      servingSizeAmount: json["serving_size_amount"],
+      servingSizeUnit: servingSizeUnitValues.map[json["serving_size_unit"]],
+    );
+  }
 
   Map<String, dynamic> toJson() => {
         "serving_size_amount": servingSizeAmount,
